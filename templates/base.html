@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Portfolio{% endblock %}</title>
+    {% load static %}
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link href="{% static 'css/dist/styles.css' %}" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-white dark:bg-gray-900 overflow-x-hidden">
+    <!-- Navigation -->
+    <nav class="bg-white dark:bg-gray-800 fixed w-full z-10 shadow-md">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <a href="{% url 'home2' %}" class="text-2xl font-bold text-purple-500 dark:text-purple-400">KEVOH</a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="{% url 'home2' %}" 
+                       class="nav-link {% if request.resolver_match.url_name == 'home2' %}text-purple-500 font-semibold{% else %}text-black dark:text-white hover:text-purple-500 dark:hover:text-purple-400{% endif %} transition-colors"
+                       onclick="event.preventDefault(); loadContent(this.href, 'home2');">
+                        Home
+                    </a>
+                    <a href="{% url 'about' %}" 
+                       class="nav-link {% if request.resolver_match.url_name == 'about' %}text-purple-500 font-semibold{% else %}text-black dark:text-white hover:text-purple-500 dark:hover:text-purple-400{% endif %} transition-colors"
+                       onclick="event.preventDefault(); loadContent(this.href, 'about');">
+                        About
+                    </a>
+                    <a href="{% url 'services' %}" 
+                       class="nav-link {% if request.resolver_match.url_name == 'services' %}text-purple-500 font-semibold{% else %}text-black dark:text-white hover:text-purple-500 dark:hover:text-purple-400{% endif %} transition-colors"
+                       onclick="event.preventDefault(); loadContent(this.href, 'services');">
+                        Services
+                    </a>
+                    <a href="{% url 'projects' %}" 
+                       class="nav-link {% if request.resolver_match.url_name == 'projects' %}text-purple-500 font-semibold{% else %}text-black dark:text-white hover:text-purple-500 dark:hover:text-purple-400{% endif %} transition-colors"
+                       onclick="event.preventDefault(); loadContent(this.href, 'projects');">
+                        Projects
+                    </a>
+                    <a href="{% url 'skills' %}" 
+                       class="nav-link {% if request.resolver_match.url_name == 'skills' %}text-purple-500 font-semibold{% else %}text-black dark:text-white hover:text-purple-500 dark:hover:text-purple-400{% endif %} transition-colors"
+                       onclick="event.preventDefault(); loadContent(this.href, 'skills');">
+                        Skills
+                    </a>
+                    <a href="{% url 'contact' %}" 
+                       class="nav-link {% if request.resolver_match.url_name == 'contact' %}text-purple-500 font-semibold{% else %}text-black dark:text-white hover:text-purple-500 dark:hover:text-purple-400{% endif %} transition-colors"
+                       onclick="event.preventDefault(); loadContent(this.href, 'contact');">
+                        Contact
+                    </a>
+                    <!-- Dark Mode Toggle Button -->
+                    <button id="theme-toggle" class="focus:outline-none" aria-label="Toggle dark mode">
+                        <i data-lucide="sun" class="w-6 h-6 text-black dark:text-white hidden dark:block"></i>
+                        <i data-lucide="moon" class="w-6 h-6 text-black dark:text-white block dark:hidden"></i>
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden focus:outline-none" id="menu-button" aria-label="Toggle navigation">
+                    <i data-lucide="menu" class="w-6 h-6 text-black dark:text-white"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div class="absolute top-full left-0 w-full bg-white dark:bg-gray-800 shadow-md md:hidden hidden transition-all duration-300 ease-in-out" id="mobile-menu">
+            <div class="px-6 py-4 space-y-3">
+                <a href="{% url 'home2' %}" 
+                   class="block {% if request.resolver_match.url_name == 'home2' %}text-purple-500 font-semibold{% else %}text-black dark:text-white hover:text-purple-500 dark:hover:text-purple-400{% endif %} transition-colors"
+                   onclick="event.preventDefault(); loadContent(this.href, 'home2');">
+                    Home
+                </a>
+                <a href="{% url 'about' %}" 
+                   class="block {% if request.resolver_match.url_name == 'about' %}text-purple-500 font-semibold{% else %}text-black dark:text-white hover:text-purple-500 dark:hover:text-purple-400{% endif %} transition-colors"
+                   onclick="event.preventDefault(); loadContent(this.href, 'about');">
+                    About
+                </a>
+                <a href="{% url 'services' %}" 
+                   class="block {% if request.resolver_match.url_name == 'services' %}text-purple-500 font-semibold{% else %}text-black dark:text-white hover:text-purple-500 dark:hover:text-purple-400{% endif %} transition-colors"
+                   onclick="event.preventDefault(); loadContent(this.href, 'services');">
+                    Services
+                </a>
+                <a href="{% url 'projects' %}" 
+                   class="block {% if request.resolver_match.url_name == 'projects' %}text-purple-500 font-semibold{% else %}text-black dark:text-white hover:text-purple-500 dark:hover:text-purple-400{% endif %} transition-colors"
+                   onclick="event.preventDefault(); loadContent(this.href, 'projects');">
+                    Projects
+                </a>
+                <a href="{% url 'skills' %}" 
+                   class="block {% if request.resolver_match.url_name == 'skills' %}text-purple-500 font-semibold{% else %}text-black dark:text-white hover:text-purple-500 dark:hover:text-purple-400{% endif %} transition-colors"
+                   onclick="event.preventDefault(); loadContent(this.href, 'skills');">
+                    Skills
+                </a>
+                <a href="{% url 'contact' %}" 
+                   class="block {% if request.resolver_match.url_name == 'contact' %}text-purple-500 font-semibold{% else %}text-black dark:text-white hover:text-purple-500 dark:hover:text-purple-400{% endif %} transition-colors"
+                   onclick="event.preventDefault(); loadContent(this.href, 'contact');">
+                    Contact
+                </a>
+                <!-- Optional: Add toggle to mobile menu -->
+                <button id="mobile-theme-toggle" class="focus:outline-none flex items-center space-x-2" aria-label="Toggle dark mode">
+                    <i data-lucide="sun" class="w-5 h-5 text-black dark:text-white hidden dark:block"></i>
+                    <i data-lucide="moon" class="w-5 h-5 text-black dark:text-white block dark:hidden"></i>
+                    <span class="text-black dark:text-white">Toggle Theme</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content" class="pt-20">
+        {% if messages %}
+        <div class="container mx-auto px-6 mt-4">
+            {% for message in messages %}
+            <div class="bg-green-100 dark:bg-green-900 border border-green-400 dark:border-green-700 text-green-700 dark:text-green-200 px-4 py-3 rounded relative" role="alert">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <div id="dynamic-content">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-100 dark:bg-gray-800 py-16 mt-16">
+        <div class="container mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 text-gray-700 dark:text-gray-300">
+            <!-- About -->
+            <div>
+                <h3 class="text-lg font-semibold mb-4 text-gray-700 dark:text-gray-200">About</h3>
+                {% if footer_about %}
+                <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                    {{ footer_about.personal_info }}
+                </p>
+                {% else %}
+                <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                    Welcome to my portfolio — where technology meets creativity. I specialize in building modern, efficient, and elegant web applications.
+                </p>
+                {% endif %}
+            </div>
+            
+            <!-- Links -->
+            <div>
+                <h3 class="text-lg font-semibold mb-4 text-gray-700 dark:text-gray-200">Links</h3>
+                <ul class="space-y-3 text-sm">
+                    <li>
+                        <a href="{% url 'home2' %}" 
+                           class="flex items-center space-x-2 hover:text-purple-600 dark:hover:text-purple-400"
+                           onclick="event.preventDefault(); loadContent(this.href, 'home2');">
+                            <i data-lucide="home" class="w-4 h-4"></i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'about' %}" 
+                           class="flex items-center space-x-2 hover:text-purple-600 dark:hover:text-purple-400"
+                           onclick="event.preventDefault(); loadContent(this.href, 'about');">
+                            <i data-lucide="user" class="w-4 h-4"></i>
+                            <span>About</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'services' %}" 
+                           class="flex items-center space-x-2 hover:text-purple-600 dark:hover:text-purple-400"
+                           onclick="event.preventDefault(); loadContent(this.href, 'services');">
+                            <i data-lucide="briefcase" class="w-4 h-4"></i>
+                            <span>Services</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'projects' %}" 
+                           class="flex items-center space-x-2 hover:text-purple-600 dark:hover:text-purple-400"
+                           onclick="event.preventDefault(); loadContent(this.href, 'projects');">
+                            <i data-lucide="folder" class="w-4 h-4"></i>
+                            <span>Projects</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'contact' %}" 
+                           class="flex items-center space-x-2 hover:text-purple-600 dark:hover:text-purple-400"
+                           onclick="event.preventDefault(); loadContent(this.href, 'contact');">
+                            <i data-lucide="mail" class="w-4 h-4"></i>
+                            <span>Contact</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Social -->
+            <div>
+                <h3 class="text-lg font-semibold mb-4 text-gray-700 dark:text-gray-200">Social</h3>
+                <ul class="space-y-3 text-sm">
+                    {% for social in footer_social_links %}
+                    <li>
+                        <a href="{{ social.url }}" target="_blank" class="flex items-center space-x-2 hover:text-purple-600 dark:hover:text-purple-400">
+                            <i data-lucide="{{ social.icon }}" class="w-4 h-4"></i>
+                            <span>{{ social.platform }}</span>
+                        </a>
+                    </li>
+                    {% empty %}
+                    <li>No social links available</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <!-- Contact -->
+            <div>
+                <h3 class="text-lg font-semibold mb-4 text-gray-700 dark:text-gray-200">Contact</h3>
+                {% if footer_contact %}
+                <ul class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
+                    <li class="flex items-center space-x-2">
+                        <i data-lucide="mail" class="w-4 h-4 text-gray-700 dark:text-gray-300"></i>
+                        <span><span class="font-medium">Email:</span> {{ footer_contact.email }}</span>
+                    </li>
+                    <li class="flex items-center space-x-2">
+                        <i data-lucide="phone" class="w-4 h-4 text-gray-700 dark:text-gray-300"></i>
+                        <span><span class="font-medium">Phone:</span> {{ footer_contact.phone }}</span>
+                    </li>
+                    <li class="flex items-center space-x-2">
+                        <i data-lucide="map-pin" class="w-4 h-4 text-gray-700 dark:text-gray-300"></i>
+                        <span><span class="font-medium">Location:</span> {{ footer_contact.location }}</span>
+                    </li>
+                </ul>
+                {% else %}
+                <p class="text-sm text-gray-600 dark:text-gray-400">Contact information not available</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Bottom -->
+        <div class="mt-12 text-center text-sm text-gray-500 dark:text-gray-400">
+            <p>© {% now "Y" %} Kevin. All rights reserved.</p>
+            <p class="text-xs mt-2">Hand-Crafted & Made by Kevin with ❤️</p>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        // Mobile menu toggle
+        const menuButton = document.getElementById('menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuButton.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Dark mode toggle
+        const htmlElement = document.documentElement;
+        const themeToggle = document.getElementById('theme-toggle');
+        const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
+
+        if (localStorage.getItem('theme') === 'dark' || 
+            (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        }
+
+        function toggleTheme() {
+            htmlElement.classList.toggle('dark');
+            if (htmlElement.classList.contains('dark')) {
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        themeToggle.addEventListener('click', toggleTheme);
+        if (mobileThemeToggle) {
+            mobileThemeToggle.addEventListener('click', toggleTheme);
+        }
+
+        // Function to load content dynamically and update active link
+        function loadContent(url, pageName) {
+            const contentDiv = document.getElementById('dynamic-content');
+            contentDiv.style.opacity = 0; // Fade out
+
+            fetch(url)
+                .then(response => response.text())
+                .then(html => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+                    const newContent = doc.querySelector('#dynamic-content').innerHTML;
+
+                    contentDiv.innerHTML = newContent;
+                    window.history.pushState({}, document.title, url); // Update browser URL
+
+                    // Update active link classes
+                    updateActiveLink(pageName);
+
+                    // Close mobile menu after navigation
+                    if (window.innerWidth <= 768 && !mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+
+                    setTimeout(() => {
+                        contentDiv.style.opacity = 1; // Fade in
+                    }, 50);
+
+                    // Re-run any scripts in the new content
+                    const scripts = contentDiv.getElementsByTagName('script');
+                    for (let script of scripts) {
+                        eval(script.innerText); // Execute inline scripts
+                    }
+                    lucide.createIcons(); // Re-initialize Lucide icons after content load
+                })
+                .catch(error => console.error('Error loading content:', error));
+        }
+
+        // Function to update active link classes
+        function updateActiveLink(pageName) {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const activeClasses = ['text-purple-500', 'font-semibold'];
+            const inactiveClasses = ['text-black', 'dark:text-white', 'hover:text-purple-500', 'dark:hover:text-purple-400'];
+
+            navLinks.forEach(link => {
+                const href = link.getAttribute('href');
+                const linkPageName = href === '/' ? 'home2' : href.split('/').filter(segment => segment)[0];
+                if (linkPageName === pageName) {
+                    link.classList.add(...activeClasses);
+                    link.classList.remove(...inactiveClasses);
+                } else {
+                    link.classList.remove(...activeClasses);
+                    link.classList.add(...inactiveClasses);
+                }
+            });
+
+            const mobileLinks = document.querySelectorAll('#mobile-menu a');
+            mobileLinks.forEach(link => {
+                const href = link.getAttribute('href');
+                const linkPageName = href === '/' ? 'home2' : href.split('/').filter(segment => segment)[0];
+                if (linkPageName === pageName) {
+                    link.classList.add(...activeClasses);
+                    link.classList.remove(...inactiveClasses);
+                } else {
+                    link.classList.remove(...activeClasses);
+                    link.classList.add(...inactiveClasses);
+                }
+            });
+        }
+
+        // Handle popstate for back/forward navigation
+        window.addEventListener('popstate', () => {
+            const path = window.location.pathname;
+            const pageName = path === '/' ? 'home2' : path.split('/').filter(segment => segment)[0];
+            loadContent(window.location.href, pageName);
+            if (window.innerWidth <= 768 && !mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+            }
+        });
+    </script>
+
+    <style>
+        #dynamic-content {
+            transition: opacity 0.3s ease-in-out; /* Smooth fade effect */
+        }
+    </style>
+</body>
+</html>

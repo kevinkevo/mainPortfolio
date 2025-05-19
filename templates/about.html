@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}About | Portfolio{% endblock %}
+
+{% block content %}
+<section class="pt-20 pb-20 px-6">
+    <div class="container mx-auto">
+        <div class="max-w-4xl mx-auto">
+            <div class="flex items-center gap-2 mb-8">
+                <i data-lucide="user" class="text-purple-600 dark:text-purple-400"></i>
+                <h1 class="text-4xl font-bold text-black dark:text-white">About Me</h1>
+            </div>
+            
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-8 mb-12">
+                <div class="flex flex-col md:flex-row gap-12 items-center">
+                    <div class="w-48 h-48 flex-shrink-0">
+                        {% if about_content.profile_image %}
+                            <img src="{{ about_content.profile_image.url }}" alt="Profile" class="w-full h-full object-cover rounded-full border-4 border-purple-100 dark:border-purple-900"/>
+                        {% else %}
+                            <img src="{% static 'images/image4.jpeg' %}" alt="Profile" class="w-full h-full object-cover rounded-full border-4 border-purple-100 dark:border-purple-900"/>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4 text-black dark:text-white">I'm {{ about_content.name|default:"Kevin" }}</h2>
+                        <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">{{ about_content.introduction }}</p>
+                        <p class="text-gray-600 dark:text-gray-300 leading-relaxed">{{ about_content.personal_info }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-8">
+                    <h3 class="text-xl font-bold mb-4 text-black dark:text-white">Experience</h3>
+                    <div class="space-y-6">
+                        {% for experience in experiences %}
+                        <div>
+                            <h4 class="font-semibold text-black dark:text-white">{{ experience.title }}</h4>
+                            <p class="text-purple-600 dark:text-purple-400">{{ experience.company }} ({{ experience.period }})</p>
+                            <p class="text-gray-600 dark:text-gray-300 mt-2">{{ experience.description }}</p>
+                        </div>
+                        {% empty %}
+                        <p class="text-gray-600 dark:text-gray-300">No experiences available.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-8">
+                    <h3 class="text-xl font-bold mb-4 text-black dark:text-white">Education</h3>
+                    <div class="space-y-6">
+                        {% for education in educations %}
+                        <div>
+                            <h4 class="font-semibold text-black dark:text-white">{{ education.degree }}</h4>
+                            <p class="text-purple-600 dark:text-purple-400">{{ education.institution }} ({{ education.period }})</p>
+                        </div>
+                        {% empty %}
+                        <p class="text-gray-600 dark:text-gray-300">No education entries available.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonials Section -->
+            <div class="mt-12">
+                <h3 class="text-xl font-bold mb-6 text-black dark:text-white">Testimonials</h3>
+                <div class="grid md:grid-cols-2 gap-6">
+                    {% for testimonial in testimonials %}
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6">
+                        <p class="text-gray-600 dark:text-gray-300 mb-4 italic">"{{ testimonial.content }}"</p>
+                        <div class="flex items-center gap-4">
+                            {% if testimonial.author_image %}
+                                <img src="{{ testimonial.author_image.url }}" alt="{{ testimonial.author_name }}" class="w-12 h-12 rounded-full object-cover"/>
+                            {% endif %}
+                            <div>
+                                <p class="font-semibold text-black dark:text-white">{{ testimonial.author_name }}</p>
+                                <p class="text-purple-600 dark:text-purple-400 text-sm">{{ testimonial.author_title }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <p class="text-gray-600 dark:text-gray-300">No testimonials available.</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="mt-12">
+                <h3 class="text-xl font-bold mb-6 text-black dark:text-white">Connect with me</h3>
+                <div class="flex gap-6">
+                    {% for link in social_links %}
+                    <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer" 
+                       class="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
+                        <i data-lucide="{{ link.icon }}" class="w-5 h-5"></i>
+                        {{ link.platform }}
+                    </a>
+                    {% empty %}
+                    <p class="text-gray-600 dark:text-gray-300">No social links available.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

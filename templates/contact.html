@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact | Portfolio{% endblock %}
+
+{% block content %}
+<section class="pt-20 pb-20 px-6">
+    <div class="container mx-auto">
+        <div class="max-w-2xl mx-auto">
+            <div class="flex items-center gap-2 mb-8">
+                <i data-lucide="mail" class="text-purple-600 dark:text-purple-400"></i>
+                <h1 class="text-4xl font-bold text-black dark:text-white">Get in Touch</h1>
+            </div>
+            
+
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-8">
+                <p class="text-gray-600 dark:text-gray-300 mb-8">
+                    I'm always interested in hearing about new projects and opportunities. 
+                    Feel free to reach out if you'd like to connect!
+                </p>
+
+                <form method="post" class="space-y-6">
+                    {% csrf_token %}
+                    <div>
+                        <label for="{{ form.name.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
+                            Name
+                        </label>
+                        {{ form.name }}
+                    </div>
+                    <div>
+                        <label for="{{ form.email.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
+                            Email
+                        </label>
+                        {{ form.email }}
+                    </div>
+                    <div>
+                        <label for="{{ form.subject.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
+                            Subject
+                        </label>
+                        {{ form.subject }}
+                    </div>
+                    <div>
+                        <label for="{{ form.message.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
+                            Message
+                        </label>
+                        {{ form.message }}
+                    </div>
+                    <div>
+                        <button type="submit" class="w-full bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 dark:hover:bg-purple-300 dark:hover:text-gray-900 transition-colors">
+                            Send Message
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

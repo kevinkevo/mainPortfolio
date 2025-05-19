@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home | Portfolio{% endblock %}
+
+{% block content %}
+<section class="pt-15 pb-10 px-6 md:px-10 fade-in">
+    <div class="container mx-auto">
+        <div class="flex flex-col-reverse md:flex-row items-center justify-between gap-10">
+            <!-- Text Section -->
+            <div class="flex-1 max-w-xl text-center md:text-left">
+                <h1 class="text-5xl font-bold leading-tight text-black dark:text-white">
+                    {{ content.title }}
+                </h1>
+                <h2 class="text-3xl font-bold text-purple-500 dark:text-purple-400 mt-4">
+                    {{ content.subtitle }}
+                </h2>
+                <p class="text-gray-600 dark:text-gray-300 mt-4 text-lg">
+                    {{ content.description }}
+                </p>
+                <div class="mt-8 flex justify-center md:justify-start gap-4">
+                    <a href="{% url 'contact' %}" 
+                        class="border border-purple-500 text-purple-500 dark:text-purple-400 dark:border-purple-400 px-6 py-3 rounded-lg hover:bg-purple-500 dark:hover:bg-purple-400 hover:text-white dark:hover:text-gray-900 transition-colors uppercase font-semibold text-sm">
+                        GET IN TOUCH
+                    </a>
+                    <a href="{% url 'projects' %}" 
+                        class="border border-purple-500 text-purple-500 dark:text-purple-400 dark:border-purple-400 px-6 py-3 rounded-lg hover:bg-purple-500 dark:hover:bg-purple-400 hover:text-white dark:hover:text-gray-900 transition-colors uppercase font-semibold text-sm">
+                        VIEW PROJECTS
+                    </a>
+                    {% if content.cv_file %}
+                    <a href="{{ content.cv_file.url }}" 
+                        class="border border-purple-500 text-purple-500 dark:text-purple-400 dark:border-purple-400 px-6 py-3 rounded-lg hover:bg-purple-500 dark:hover:bg-purple-400 hover:text-white dark:hover:text-gray-900 transition-colors uppercase font-semibold text-sm"
+                        download>
+                        DOWNLOAD CV
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Image Section -->
+            <div class="flex-1 flex justify-center md:justify-end">
+                <div class="w-70 h-70 rounded-full bg-yellow-400 flex items-center justify-center border-8 border-white dark:border-gray-800 overflow-hidden shadow-xl">
+                    {% if content.profile_image %}
+                        <img 
+                            src="{{ content.profile_image.url }}"  
+                            alt="Profile"
+                            class="w-full h-full object-cover"
+                        />
+                    {% else %}
+                        <img 
+                            src="{% static 'images/image2.jpeg' %}"  
+                            alt="Profile"
+                            class="w-full h-full object-cover"
+                        />
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- JavaScript for Auto Transition -->
+<script>
+    setTimeout(() => {
+        loadContent("{% url 'home2' %}"); // Load home2 content dynamically
+    }, 5000); // Switch after 5 seconds
+</script>
+
+<style>
+    .fade-in {
+        opacity: 0;
+        animation: fadeIn 1s forwards;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,35 @@
+<footer class="bg-gray-100 py-16 mt-16">
+    <div class="container mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 text-gray-700">
+        <!-- Footer Content -->
+        <div>
+            <h3 class="text-lg font-semibold mb-4">About</h3>
+            <p class="text-sm text-gray-600 leading-relaxed">
+                Welcome to my portfolio — where technology meets creativity.
+            </p>
+        </div>
+
+        <div>
+            <h3 class="text-lg font-semibold mb-4">Links</h3>
+            <ul class="space-y-3 text-sm">
+                <li><a href="{% url 'home1' %}" class="hover:text-purple-600">➝ Home</a></li>
+                <li><a href="{% url 'about' %}" class="hover:text-purple-600">➝ About</a></li>
+                <li><a href="{% url 'projects' %}" class="hover:text-purple-600">➝ Projects</a></li>
+                <li><a href="{% url 'contact' %}" class="hover:text-purple-600">➝ Contact</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <h3 class="text-lg font-semibold mb-4">Contact</h3>
+            <ul class="space-y-3 text-sm text-gray-600">
+                <li><span class="font-medium">Email:</span> info@yourdomain.com</li>
+                <li><span class="font-medium">Phone:</span> +2 392 3929 210</li>
+                <li><span class="font-medium">Location:</span> San Francisco, CA</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="mt-12 text-center text-sm text-gray-500">
+        <p>© {% now "Y" %} John Doe. All rights reserved.</p>
+        <p class="text-xs mt-2">Built with Django & Tailwind CSS</p>
+    </div>
+</footer>
